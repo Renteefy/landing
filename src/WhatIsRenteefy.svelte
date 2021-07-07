@@ -1,8 +1,4 @@
 <script>
-  import Introduction from "./Introduction.svelte";
-  import Tailwind from "./components/Tailwind.svelte";
-  import Headroom from "svelte-headroom";
-  export let name;
 </script>
 
 <section id="whatisrenteefy">
@@ -13,7 +9,7 @@
       What is Renteefy?
     </div>
     <div class="answerContainer flex flex-wrap md:flex-nowrap md:mb-10 ">
-      <div class="card p-4 flex-1 ">
+      <div class="card p-4 md:flex-1 ">
         <div class="image mb-10 w-full ">
           <img
             class="w-full rounded-lg"
@@ -28,7 +24,7 @@
           services (like tutoring classes, household, coding etc) for rent
         </div>
       </div>
-      <div class="card p-4 flex-1 ">
+      <div class="card p-4 md:flex-1 ">
         <div class="image mb-10 w-full ">
           <img
             class="w-full rounded-lg"
@@ -46,7 +42,7 @@
         </div>
       </div>
 
-      <div class="card p-4 flex-1  ">
+      <div class="card p-4 md:flex-1  ">
         <div class="image  mb-10 w-full ">
           <img
             class="w-full rounded-lg"
