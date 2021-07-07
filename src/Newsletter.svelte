@@ -47,7 +47,7 @@
   }
 </script>
 
-<section>
+<section id="newsletter">
   <div
     class="container w-screen ml-auto p-10 mr-auto max-w-screen-lg bg-green-100 m-4   rounded-lg"
   >
