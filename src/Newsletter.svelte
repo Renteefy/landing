@@ -34,7 +34,8 @@
       .then((res) => {
         loading = false;
         //console.log(res.data.statusCode);
-        if (res.status === 429) return showToast("Something went wrong", "red");
+        if (res.status === 429 || res.status === 400)
+          return showToast("Something went wrong", "red");
         if (res.data.statusCode === 200)
           return showToast("You are in! 🍾", "green");
         return showToast(
