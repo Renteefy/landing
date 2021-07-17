@@ -10,8 +10,8 @@
         Welcome to the next era of Renting
       </div>
       <div class="title font-worksans text-xl my-8">
-        A Community driven renting marketplace that helps you rent assets or
-        services or list them for people to be able to rent them
+        A community centered marketplace that ensures safe, affordable and
+        lightning fast renting
       </div>
       <a
         class="next w-auto inline-block mt-5 cursor-pointer"
