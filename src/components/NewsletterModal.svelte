@@ -5,6 +5,7 @@
   import axios from "axios";
   let email;
   let loading = false;
+  let skipNewsletter = false;
   export let showNewsletter = false;
   function showToast(message, bgColor) {
     Toastify({
@@ -35,7 +36,8 @@
       .then((res) => {
         loading = false;
         //console.log(res.data.statusCode);
-        if (res.status === 429) return showToast("Something went wrong", "red");
+        if (res.data.status === 400 && res.data.message === "redundant")
+          return showToast("You have signed up already!", "green");
         if (res.data.statusCode === 200)
           return showToast("You are in! 🍾", "green");
         return showToast(
@@ -48,7 +50,53 @@
   }
 </script>
 
-{#if showNewsletter}
+{#if skipNewsletter}
+  <section>
+    <div
+      class="container w-screen p-5 mr-auto max-w-screen-lg  m-4   rounded-lg"
+    >
+      <div
+        class="title text-xl md:text-3xl font-bold mb-5 flex justify-between "
+      >
+        We need your help!
+        <div
+          class="close cursor-pointer"
+          on:click={() => {
+            showNewsletter = false;
+          }}
+        >
+          <img src="https://img.icons8.com/windows/32/000000/delete-sign.png" />
+        </div>
+      </div>
+      <div class="subtitle font-worksans">
+        We currently are in the very initial stages of our project. Would you be
+        interested in filling a survey for us? We promise it is not going to
+        take a lot of your time and help us understand what the users need
+        better.
+      </div>
+
+      <button
+        on:click={() => {
+          window.location.href = "/#/survey";
+        }}
+        class="button bg-gray-800 p-4 text-center mt-4 w-full text-white rounded-lg"
+      >
+        Yeah, sure (recommended ❤️)
+      </button>
+      <button
+        on:click={() => {
+          skipNewsletter = false;
+          showNewsletter = false;
+        }}
+        class="button bg-gray-100 p-4 text-center mt-2 w-full text-black rounded-lg"
+      >
+        No, Thank you
+      </button>
+    </div>
+  </section>
+{/if}
+
+{#if showNewsletter && !skipNewsletter}
   <section>
     <div
       class="container w-screen p-5 mr-auto max-w-screen-lg  m-4   rounded-lg"
@@ -58,7 +106,7 @@
       >
         Join our Newsletter!
         <div
-          class="close"
+          class="close cursor-pointer"
           on:click={() => {
             showNewsletter = false;
           }}
@@ -83,6 +131,14 @@
           class="button bg-gray-800 p-4 text-center mt-4 w-full text-white rounded-lg"
         >
           Sign me up
+        </button>
+        <button
+          on:click={() => {
+            skipNewsletter = true;
+          }}
+          class="button bg-gray-100 p-4 text-center mt-2 w-full text-black rounded-lg"
+        >
+          Nah, I'll Pass
         </button>
       {:else}
         <Jumper size="60" color="#FF3E00" unit="px" duration="1s" />

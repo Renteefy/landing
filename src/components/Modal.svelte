@@ -3,7 +3,7 @@
   let showNewsletter = false;
 
   setTimeout(() => {
-    showNewsletter = false;
+    showNewsletter = true;
   }, 1000);
 </script>
 
