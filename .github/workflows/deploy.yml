@@ -17,7 +17,6 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd landing
-            pm2 stop landing-service
             git pull
             yarn run build
-            pm2 start landing-service
+            pm2 restart landing-service
