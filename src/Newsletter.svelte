@@ -13,7 +13,7 @@
     }).showToast();
   }
   function onSignup() {
-    console.log(email);
+    //console.log(email);
     let chkEmail =
       email === null || email === "" || email === undefined
         ? 0
@@ -42,7 +42,7 @@
           `We might had a problem processing
   this request. We apologize for this inconvience. You can still reach us out at
   renteefy@gmail.com`,
-          "yellow"
+          "black"
         );
       });
   }

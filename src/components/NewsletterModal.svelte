@@ -15,7 +15,7 @@
     }).showToast();
   }
   function onSignup() {
-    console.log(email);
+    //console.log(email);
     let chkEmail =
       email === null || email === "" || email === undefined
         ? 0
@@ -36,15 +36,19 @@
       .then((res) => {
         loading = false;
         //console.log(res.data.statusCode);
-        if (res.data.status === 400 && res.data.message === "redundant")
+        if (res.data.status === 400 && res.data.message === "redundant") {
+          skipNewsletter = true;
           return showToast("You have signed up already!", "green");
-        if (res.data.statusCode === 200)
+        }
+        if (res.data.statusCode === 200) {
+          skipNewsletter = true;
           return showToast("You are in! 🍾", "green");
+        }
         return showToast(
           `We might had a problem processing
   this request. We apologize for this inconvience. You can still reach us out at
   renteefy@gmail.com`,
-          "yellow"
+          "black"
         );
       });
   }

@@ -1,12 +1,82 @@
 <script>
+  import YesorNo from "./YesorNo.svelte";
+
   import axios from "axios";
   import Toastify from "toastify-js";
   import Ratingbar from "./Ratingbar.svelte";
+  import { Jumper } from "svelte-loading-spinners";
+  let loading = false;
 
   let questions = [
-    { question: "This is a question", type: "shortanswer", answer: "" },
-    { question: "This is a question", type: "biganswer", answer: "" },
-    { question: "this is question", type: "5star", selstar: 0 },
+    {
+      question: "Hey! Let's start off with your name",
+      type: "shortanswer",
+      answer: "",
+    },
+    { question: "Cool! What's your email?", type: "shortanswer", answer: "" },
+    {
+      question: "Are you familiar with the concept of Renteefy?",
+      type: "yesorno",
+      answer: "",
+      option: {
+        yes: "Oh yeah! 😎 ",
+        no: "Not quiet sure 🧐",
+      },
+    },
+    {
+      question:
+        "Renteefy is a rental marketplace where you can lend or borrow items or services for a specific period of time. Do you think this platform is beneficial to you? ",
+      type: "yesorno",
+      answer: "",
+      option: {
+        yes: "Yes! I think i know just how to use this product",
+        no: "No, personally I don't feel a need for this",
+      },
+    },
+    {
+      question:
+        "If given a chance to rent out any item from your current household, what would that item be?",
+      type: "shortanswer",
+      answer: "",
+    },
+    {
+      question:
+        "Similarly given a chance to rent out a service, what would that service be?",
+      type: "shortanswer",
+      answer: "",
+    },
+    {
+      question:
+        "Okay now put yourself in the reciever's shoes, are you willing to rent an item instead of buying it?",
+      type: "yesorno",
+      answer: "",
+      option: {
+        yes: "Oh yeah! 😎 ",
+        no: "Not quiet sure 🧐",
+      },
+    },
+    {
+      question:
+        "What will your immediate concerns be when you give your product or service to someone else ",
+      type: "shortanswer",
+      answer: "",
+    },
+    {
+      question:
+        "Do you like the idea and concept of Renteefy? Are you looking forward to the launch of Renteefy?",
+      type: "yesorno",
+      answer: "",
+      option: {
+        yes: "I'm looking forward to the launch of Renteefy ",
+        no: "Not yet, but I will start using it when people around me start using it",
+      },
+    },
+    {
+      question: "Anything else you would want us to know or ask?",
+      type: "biganswer",
+      answer: "",
+    },
+    // { question: "this is question", type: "5star", selstar: 0 },
   ];
   function showToast(message, bgColor) {
     Toastify({
@@ -16,14 +86,17 @@
     }).showToast();
   }
   function submitSurvey() {
+    console.log(questions);
+    loading = true;
     axios
       .post("https://api.renteefy.com/survey/storeSurvey", { data: questions })
       .then((res) => {
+        console.log(res.data);
         if (res.data.statusCode === 200) {
           showToast("Submitted! Thank You! Now Redirecting... 😁", "green");
           setTimeout(() => {
             window.location.href = "https://renteefy.com";
-          }, 1000);
+          }, 5000);
         } else {
           showToast("Something went wrong", "red");
         }
@@ -70,13 +143,26 @@
           type="text"
           class="bg-gray-100 p-3 m-4 rounded-lg"
         />
+      {:else if question.type === "yesorno"}
+        <form class="my-4">
+          <YesorNo
+            question={question.question}
+            bind:answer={question.answer}
+            yes={question.option.yes}
+            no={question.option.no}
+          />
+        </form>
       {/if}
     {/each}
-    <div
-      class="button p-4 bg-pink-600 text-white text-center m-3 mt-9 rounded-lg cursor-pointer"
-      on:click={submitSurvey}
-    >
-      Submit
-    </div>
+    {#if loading}
+      <Jumper size="60" color="#FF3E00" unit="px" duration="1s" />
+    {:else}
+      <div
+        class="button p-4 bg-pink-600 text-white text-center m-3 mt-9 rounded-lg cursor-pointer"
+        on:click={submitSurvey}
+      >
+        Submit
+      </div>
+    {/if}
   </div>
 </div>
