@@ -23,6 +23,7 @@
     "tailwindcss": "^2.0.3"
   },
   "dependencies": {
+    "@rollup/plugin-json": "^4.1.0",
     "axios": "^0.21.1",
     "sirv-cli": "^1.0.0",
     "svelte-headroom": "^2.2.1",
